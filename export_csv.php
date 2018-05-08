@@ -69,14 +69,19 @@ $products = parse_versions_data($products, $mysqli);
 // header("Content-Disposition: attachment; filename=".$csv_filename."");
 // header("Pragma: no-cache");
 // header("Expires: 0");
-$sep = "~";
+$sep = ",";
 $titles =[
-// 'index',
-'sku', 'post_title',
-// 'post_status', 'lecacy_image', 'images', 'product_gallery', 'featured_image', 'regular_price', 'sale_price', 'category',
+//'index',
+'sku',
+//'post_title',
+// 'post_status',
+//'lecacy_image', 'images',
+'product_gallery', 'featured_image',
+//'regular_price', 'sale_price', 'category',
 // 'tag', 'location', 'shape', 'material', 'style', 'color',
 // 'dimensions', 'width', 'height', 'length', 'seat_height', 'additional_dimension',
-'post_content'];
+//'post_content'
+];
 foreach ($titles as  $title) {
    $schema_insert.= $title.$sep;
 }
@@ -95,12 +100,12 @@ foreach ($products as $product) {
     $schema_insert = "";
     //$schema_insert = trim($product['id']).$sep;
     $schema_insert.= trim($product['sku']).$sep;
-    $schema_insert.= $product['title'].$sep;
+    //$schema_insert.= $product['title'].$sep;
     // $schema_insert.= $product['status'].$sep;
     // $schema_insert.= $product['lecacy_image'].$sep;
     // $schema_insert.= json_encode($product['images']).$sep;
-    // $schema_insert.= json_encode($product['product_gallery']).$sep;
-    // $schema_insert.= json_encode($product['featured_image']).$sep;
+    $schema_insert.= json_encode($product['product_gallery']).$sep;
+    $schema_insert.= json_encode($product['featured_image']).$sep;
     // $schema_insert.= $product['regular_price'].$sep;
     // $schema_insert.= $product['sale_price'].$sep;
     // $schema_insert.= json_encode($product['category']).$sep;
@@ -118,7 +123,7 @@ foreach ($products as $product) {
     // $schema_insert.= $product['dimensions']['seat_height'].$sep;
     // $schema_insert.= $product['dimensions']['additional_dimension'].$sep;
 
-    $schema_insert.= json_encode($product['description']).$sep;
+    // $schema_insert.= json_encode($product['description']).$sep;
     print($schema_insert);
     print "\n";
 }
